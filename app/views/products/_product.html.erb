@@ -1,4 +1,12 @@
 <div id="<%= dom_id product %>">
+
+   <p>
+    <strong>image:</strong> <br>
+    <% if product.image.attached? %>
+    <%= image_tag(product.image , width: "200px") %>
+    <% end %>
+  </p>
+
   <p>
     <strong>Name:</strong>
     <%= product.name %>

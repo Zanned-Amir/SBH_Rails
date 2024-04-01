@@ -1,11 +1,14 @@
 class ProductsController < ApplicationController
+  include Pagy::Backend
   layout 'admin'
   before_action :authenticate_admin!
   before_action :set_product, only: %i[ show edit update destroy ]
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    # @products = Product.all
+    @q = Product.ransack(params[:q])
+    @pagy , @products = pagy(@q.result(distinct: true),items: 10 )
   end
 
   # GET /products/1 or /products/1.json
@@ -67,6 +70,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :description, :price, :stock_quantity, :category_id)
+      params.require(:product).permit(:image,:name, :description, :price, :stock_quantity, :category_id,:active)
     end
 end

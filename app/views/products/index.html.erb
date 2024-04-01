@@ -9,15 +9,58 @@
         </h6>
     </div>
     <div class="card-body">
-        <table class="table">
+    Time: <%= Time.now %>
+
+   <!-- search part -->
+<div class="card">
+  <div class="card-body">
+    <%= search_form_for @q, html: { class: 'row g-3' } do |f| %>
+      <div class="col-md-6">
+        <%= f.label :name_cont, class: 'form-label' %>
+        <%= f.search_field :name_cont, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-6">
+        <%= f.label :price_gteq, "Minimum Price", class: 'form-label' %>
+        <%= f.search_field :price_gteq, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-6">
+        <%= f.label :price_lteq, "Maximum Price", class: 'form-label' %>
+        <%= f.search_field :price_lteq, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-6">
+        <%= f.label :category_id_eq, "Category", class: 'form-label' %>
+        <%= f.collection_select(:category_id_eq, Category.all, :id, :name, { include_blank: true }, class: 'form-control') %>
+      </div>
+
+      <div class="col-md-6">
+        <%= f.label :active_eq, "Active", class: 'form-label' %>
+        <%= f.select :active_eq, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control' %>
+      </div>
+
+      <div class="col-12">
+        <%= f.submit "Search", class: "btn btn-primary"  %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "Reset", products_path, class: "btn btn-primary mt-3" %>
+<p>
+ <%== pagy_bootstrap_nav(@pagy) %>
+</p>
+        <table class="table-responsive-lg table table-striped table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Stock Quantity</th>
-                    <th>Category</th>
+                    <th><%= sort_link(@q, :name, 'Name', default_order: :desc) %></th>
+                    <th><%= sort_link(@q, :description, 'Description', default_order: :desc) %></th>
+                    <th><%= sort_link(@q, :price, 'Price', default_order: :desc) %></th>
+                    <th><%= sort_link(@q, :stock_quantity, 'Stock', default_order: :desc) %></th>
+                    <th><%= sort_link(@q, :category_id, 'category', default_order: :desc) %></th>
+                    <th><%= sort_link(@q, :active, 'Active', default_order: :desc) %></th>
                     <th colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -25,18 +68,24 @@
                 <% @products.each do |product| %>
                     <tr>
                         <td><%= product.id %></td>
-                        <td><%= product.name %></td>
+                        <td><%=highlight product.name , params.dig(:q,:name_cont)%></td>
                         <td><%= product.description %></td>
                         <td><%= product.price %></td>
                         <td><%= product.stock_quantity %></td>
                         <td><%= product.category.name %></td>
+                      <td><%= product.active ? content_tag(:span, "Active", class: "text-success") : content_tag(:span, "Inactive", class: "text-danger") %></td>
                         <td><%= link_to "Show", product %></td>
                         <td><%= link_to "Edit", edit_product_path(product) %></td>
                     </tr>
                 <% end %>
             </tbody>
         </table>
+         <p>
+    <%== pagy_bootstrap_nav(@pagy) %>
+
+    </p>
     </div>
+   
 </div>
 
 <%= link_to "New product", new_product_path %>

@@ -67,6 +67,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+gem 'faker'
  gem "devise", "~> 4.9" 
  gem "cssbundling-rails"
  gem "font-awesome-rails"
+ gem "ransack"
+ gem 'pagy'
