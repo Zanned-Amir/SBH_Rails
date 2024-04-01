@@ -1,0 +1,56 @@
+
+
+<div class="card border-0">
+  <div class="card-header">
+    <h5 class="card-title">Orders</h5>
+    <h6 class="card-subtitle text-muted">List of all orders</h6>
+  </div>
+  <style>
+  .status-pending {
+    color: orange; /* Or any other color for pending status */
+  }
+  
+  .status-confirmed {
+    color: green; /* Or any other color for confirmed status */
+  }
+  
+  .status-shipped {
+    color: blue; /* Or any other color for shipped status */
+  }
+  
+  .status-delivered {
+    color: purple; /* Or any other color for delivered status */
+  }
+</style>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>User</th>
+          <th>Order Date</th>
+          <th>Total Amount</th>
+          <th>Status</th>
+          <th colspan="4">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.id %></td>
+            <td><%= order.user.name if order.user %></td>
+            <td><%= order.order_date %></td>
+            <td><%= order.total_amount %></td>
+            <td class="<%= status_color_class(order.status) %>"><%= order.status %></td>
+            <td><%= link_to "Show", order %></td>
+            <td><%= link_to "Edit", edit_order_path(order) %></td>
+            <td><%= link_to "Destroy", order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td> <%= link_to "See more", details_order_path(order) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= link_to "New Order", new_order_path %>

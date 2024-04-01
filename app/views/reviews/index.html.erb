@@ -1,0 +1,44 @@
+<p style="color: green"><%= notice %></p>
+
+
+<div class="card border-0">
+    <div class="card-header">
+        <h5 class="card-title">
+          <i class="fas fa-folder"></i>   Reviews
+        </h5>
+        <h6 class="card-subtitle text-muted">
+           List of all reviews
+        </h6>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col">Review Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @reviews.each do |review| %>
+                    <tr>
+                        <td><%= user_status_message(review.user) %></td>
+                        <td><%= review.product.name %></td>
+                        <td><%= review.rating %></td>
+                        <td><%= review.comment %></td>
+                        <td><%= review.review_date %></td>
+                        <td>
+                            <%= link_to 'Edit', edit_review_path(review) %> |
+                            <%= link_to 'Delete', review, method: :delete, data: { confirm: 'Are you sure?' } %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%= link_to "New review", new_review_path %>

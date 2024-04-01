@@ -1,0 +1,30 @@
+<p style="color: green"><%= notice %></p>
+<h1>Order Details</h1>
+
+<% if @order_details.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th colspan="2">Actions</th> <!-- Added for Edit and Destroy actions -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @order_details.each do |detail| %>
+        <tr>
+          <td><%= detail.product.name %></td>
+          <td><%= detail.quantity %></td>
+          <td><%= detail.price %></td>
+          <td><%= link_to "Edit", edit_order_detail_path(detail) %></td> <!-- Edit action -->
+          <td><%= button_to "Destroy", order_detail_path(detail), method: :delete, data: { turbo_confirm: 'Are you sure?' } %></td> <!-- Destroy action -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No order details found.</p>
+<% end %>
+
+

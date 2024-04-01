@@ -1,0 +1,43 @@
+<!-- Table Element -->
+<div class="card border-0">
+    <div class="card-header">
+        <h5 class="card-title">
+           <i class="fas fa-box"></i>  Products
+        </h5>
+        <h6 class="card-subtitle text-muted">
+            List of all products
+        </h6>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Stock Quantity</th>
+                    <th>Category</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @products.each do |product| %>
+                    <tr>
+                        <td><%= product.id %></td>
+                        <td><%= product.name %></td>
+                        <td><%= product.description %></td>
+                        <td><%= product.price %></td>
+                        <td><%= product.stock_quantity %></td>
+                        <td><%= product.category.name %></td>
+                        <td><%= link_to "Show", product %></td>
+                        <td><%= link_to "Edit", edit_product_path(product) %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%= link_to "New product", new_product_path %>
+
