@@ -1,0 +1,15 @@
+<!-- app/views/home/cart.html.erb -->
+
+<div class="container">
+  <h1>Your Cart</h1>
+
+  <% if @cart.empty? %>
+    <p>Your cart is empty.</p>
+  <% else %>
+    <% @cart.each do |product, quantity| %>
+      <%= render partial: 'card_cart', locals: { product: product , quantity: quantity} %>
+    <% end %>
+
+    <p><strong>Total:</strong> <%= number_to_currency(@cart.sum { |product, quantity| product.price * quantity }) %></p>
+  <% end %>
+</div>

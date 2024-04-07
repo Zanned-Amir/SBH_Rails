@@ -1,16 +1,23 @@
-<%= form_with(model: resource, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "admins/shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username%>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
- <div class="field">
+  <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
@@ -27,42 +34,6 @@
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-
-  <div>
-    <%= f.label :name, style: "display: block" %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div>
-    <%= f.label :last_name, style: "display: block" %>
-    <%= f.text_field :last_name %>
-  </div>
-
-  <div>
-    <%= f.label :state, style: "display: block" %>
-    <%= f.select :state, User::TUNISIAN_STATES, prompt: "Select State" %>
-  </div>
-
-  <div>
-    <%= f.label :gender, style: "display: block" %>
-    <%= f.select :gender, User::GENDER_OPTIONS, prompt: "Select Gender" %>
-  </div>
-
-  <div>
-    <%= f.label :address_1, style: "display: block" %>
-    <%= f.text_area :address_1, rows: 4 %>
-  </div>
-
-  <div>
-    <%= f.label :address_2, style: "display: block" %>
-    <%= f.text_area :address_2, rows: 4 %>
-  </div>
-
-  <div>
-    <%= f.label :birth_date, style: "display: block" %>
-    <%= f.date_field :birth_date %>
   </div>
 
   <div class="actions">

@@ -1,6 +1,11 @@
 # app/models/user.rb
 
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
   has_many :orders , dependent: :nullify
   has_many :reviews ,dependent: :nullify
   has_many :user_roles
@@ -10,7 +15,6 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: { message: "has already been taken" }
-  validates :password, presence: true
   validates :state, presence: true
 
   TUNISIAN_STATES = [

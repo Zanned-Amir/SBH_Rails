@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_01_110121) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_03_195530) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -138,7 +138,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_01_110121) do
     t.string "name", limit: 50, null: false
     t.string "last_name"
     t.string "email", limit: 100, null: false
-    t.string "password", limit: 100, null: false
     t.datetime "registration_date", default: -> { "CURRENT_TIMESTAMP" }
     t.string "address_1", limit: 255
     t.string "address_2", limit: 255
@@ -147,6 +146,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_01_110121) do
     t.date "birth_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

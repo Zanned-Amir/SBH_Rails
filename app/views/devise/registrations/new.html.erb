@@ -1,21 +1,15 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_with(model: resource, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
-  </div>
 
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
@@ -25,9 +19,45 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
-  <div class="actions">
+  <div>
+    <%= f.label :name, style: "display: block" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name, style: "display: block" %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :state, style: "display: block" %>
+    <%= f.select :state, User::TUNISIAN_STATES, prompt: "Select State" %>
+  </div>
+
+  <div>
+    <%= f.label :gender, style: "display: block" %>
+    <%= f.select :gender, User::GENDER_OPTIONS, prompt: "Select Gender" %>
+  </div>
+
+  <div>
+    <%= f.label :address_1, style: "display: block" %>
+    <%= f.text_area :address_1, rows: 4 %>
+  </div>
+
+  <div>
+    <%= f.label :address_2, style: "display: block" %>
+    <%= f.text_area :address_2, rows: 4 %>
+  </div>
+
+  <div>
+    <%= f.label :birth_date, style: "display: block" %>
+    <%= f.date_field :birth_date %>
+  </div>
+
+  <div>
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
 
 <%= render "devise/shared/links" %>
+

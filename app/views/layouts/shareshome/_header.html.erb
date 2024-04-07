@@ -1,4 +1,6 @@
-<header>
+<%=stylesheet_link_tag("header.css")=%>
+<header >
+<div id="header">
         <nav class="info">
             <ul style = "list-style-type: none">
                 <li><a href="#"class="item"> Welcome to Sph</a></li>
@@ -11,8 +13,12 @@
             <ul style = "list-style-type: none">
                 <li><svg class="svg_fill bg"id="logo"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,5V7H21V5H3Z" /></svg>
                     <a href="#"class="item-1">
-
-                        <%= image_tag 'logo.png', width: '200', height: '70', id: 'logo-1', alt: 'logo' %>                 </a></li>
+                    
+                        <li>
+                          <%= link_to root_path do %>
+                            <%= image_tag 'logo.png', width: '200px', height: '70', id: 'logo-1', alt: 'logo' %>
+                          <% end %>
+                        </li>
 
                 <li><div class="bgg-1"><svg class="svg_fill bg-1"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
                         </div>
@@ -20,25 +26,44 @@
                     <div class="bgg-2"><svg class="svg_fill bg-1"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,17V19H9V17H3M3,5V7H13V5H3M13,21V19H21V17H13V15H11V21H13M7,9V11H3V13H7V15H9V9H7M21,13V11H11V13H21M15,9H17V7H21V5H17V3H15V9Z" /></svg>
                     </div>
                 </li>
-                <li> <svg class="svg_fill"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" /></svg>
-                    <a href="sign-in.html"class="item-1">S'inscrire / Se connecter</a></li>
-                <li><svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,18A2,2 0 0,1 19,20A2,2 0 0,1 17,22C15.89,22 15,21.1 15,20C15,18.89 15.89,18 17,18M1,2H4.27L5.21,4H20A1,1 0 0,1 21,5C21,5.17 20.95,5.34 20.88,5.5L17.3,11.97C16.96,12.58 16.3,13 15.55,13H8.1L7.2,14.63L7.17,14.75A0.25,0.25 0 0,0 7.42,15H19V17H7C5.89,17 5,16.1 5,15C5,14.65 5.09,14.32 5.24,14.04L6.6,11.59L3,4H1V2M7,18A2,2 0 0,1 9,20A2,2 0 0,1 7,22C5.89,22 5,21.1 5,20C5,18.89 5.89,18 7,18M16,11L18.78,6H6.14L8.5,11H16Z" /></svg>
-                    <a href="#"class="item-1">Panier</a></li>
-            
-            </ul>
+                <li id ="yoyo"> <svg class="svg_fill"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" /></svg>
+                    <% if user_signed_in? %>
+                        <%= link_to "Déconnecter", destroy_user_session_path, method: :delete, class: "item-1" %>
+                        <% else %>
+                        <%= link_to "S'inscrire / Se connecter", new_user_session_path, class: "item-1" %>
+                    <% end %>
+                 
+                   
+                    <div class="icon-container" id="icon-container">
+                      <i class="fas fa-shopping-cart" style="fill:green;"></i>
+                      <% unless @cart_count.nil? || @cart_count <= 0 %>
+                        <div class="circle" id ="circle">
+                          <div id="cart-count">
+                            <%= render partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count } %>
+                          </div>
+                        </div>
+                      <% end %>
+                      <%= link_to 'Panier', cart_path, class: 'item-1' %>
+                    </div>
+                    </li>
+
+     </ul>
         
 
         </nav>
-        <nav class="category">
-            <ul style = "list-style-type: none">
-           <li class="item-2">Marque<svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></li>
-           <li class="item-2">Visage<svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></li>
-           <li class="item-2">Cheveux<svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></li>
-           <li class="item-2">Corps<svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></li>
-           <li class="item-2">Solaires<svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></li>
-           <li class="item-2">Bebe et Maman<svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></li>
-           <li class="item-2">Compléments Alimentaires<svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></li>
-           <li class="item-2">Matériel Médical<svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg></li>
-            </ul>
-        </nav>
-    </header>
+       <nav class="category">
+<ul style="list-style-type: none">
+  <% @categories.each do |category| %>
+    <%= link_to show_products_by_category_home_path(category_id: category.id) do %>
+      <li class="item-2">
+        <%= category.name %>
+        <svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+        </svg>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+</nav>
+</div>
+</header>
