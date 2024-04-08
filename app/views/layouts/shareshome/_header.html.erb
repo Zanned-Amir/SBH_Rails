@@ -34,17 +34,17 @@
                     <% end %>
                  
                    
-                    <div class="icon-container" id="icon-container">
-                      <i class="fas fa-shopping-cart" style="fill:green;"></i>
-                      <% unless @cart_count.nil? || @cart_count <= 0 %>
-                        <div class="circle" id ="circle">
-                          <div id="cart-count">
-                            <%= render partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count } %>
-                          </div>
+                <div class="icon-container" id="icon-container" style="position: relative;">
+                    <i class="fas fa-shopping-cart" style="fill:green;"></i>
+                    <% unless @cart_count.nil? || @cart_count <= 0 %>
+                      <div class="circle" id ="circle" style="position: absolute; top: -10px; right: -10px;">
+                        <div id="cart-count">
+                          <%= render partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count } %>
                         </div>
-                      <% end %>
-                      <%= link_to 'Panier', cart_path, class: 'item-1' %>
-                    </div>
+                      </div>
+                    <% end %>
+                    <%= link_to 'Panier', cart_path, class: 'item-1' %>
+                  </div>
                     </li>
 
      </ul>

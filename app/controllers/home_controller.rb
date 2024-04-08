@@ -86,13 +86,99 @@ end
     end
   end
 
+  def checkout
+    if user_signed_in?
+      # Check if the cart is empty
+      if session[:cart].blank?
+        flash[:alert] = "Your cart is empty. Please add some products before checking out."
+        redirect_to root_path and return
+      else 
+        redirect_to order_confirmation_path()
+      
+      end
+      
+    else
+      flash[:alert] = "You need to sign in before saving the order"
+      redirect_to new_user_session_path
+    end
+  end
+
+
+  def order_confirmation
+    if user_signed_in?
+      if session[:cart].blank?
+        flash[:alert] = "Your cart is empty. Please add some products before confirming the order."
+        redirect_to root_path
+      else
+        @cart_items = session[:cart].map do |product_id, quantity|
+          product = Product.find_by(id: product_id)
+          { product: product, quantity: quantity } if product
+        end.compact
+      end
+    else
+      flash[:alert] = "You need to sign in before confirming the order"
+      redirect_to new_user_session_path
+    end
+  end
   
-def set_cart_count
+  def save_order
+    if user_signed_in?
+      # Check if the cart is empty
+      if session[:cart].blank?
+        flash[:error] = "Your cart is empty."
+        redirect_to root_path and return
+      else
+        process_order
+      end
+  
+    else
+      flash[:error] = "You must be signed in to save an order."
+      redirect_to new_user_session_path
+    end
+  end
+
+  private
+  def process_order
+    order = current_user.orders.build(total_amount: calculate_total_price, status: "Pending")
+  
+    if order.save
+      session[:cart].each do |product_id, quantity|
+        product = Product.find(product_id)
+        order.order_details.create(product: product, quantity: quantity, price: product.price)
+      end
+      session[:cart] = {} # Clear the cart
+      flash[:notice] = "Order and order details saved successfully"
+    else
+      flash[:alert] = "Failed to save order"
+      redirect_back fallback_location: root_path
+    end
+  end
+
+
+    
+
+  def set_cart_count
     session[:cart] ||= {}
     @cart_count = session[:cart].values.sum
-end
+  end
 
+  def calculate_total_price
+    total_price = 0
   
+    session[:cart].each do |product_id, quantity|
+      product = Product.find(product_id)
+      total_price += product.price * quantity
+    end
+  
+    total_price
+  end
+
+   
+  
+  def order_params
+    # Use the rescue clause to return nil if the :order key is missing
+    params.require(:order).permit(:status, :total_amount) rescue nil
+  end
 
   def home_params
     params.require(:category).permit(:name)

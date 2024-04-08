@@ -13,3 +13,4 @@
     <p><strong>Total:</strong> <%= number_to_currency(@cart.sum { |product, quantity| product.price * quantity }) %></p>
   <% end %>
 </div>
+<%= link_to 'Checkout', checkout_path, class: 'btn btn-primary' %>

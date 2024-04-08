@@ -1,0 +1,24 @@
+<!-- app/views/home/order_confirmation.html.erb -->
+<h1>Order Confirmation</h1>
+
+<% if @cart_items.any? %>
+  <p>Your order has been confirmed. Here are the details:</p>
+
+  <!-- Display cart items -->
+  <ul>
+    <% @cart_items.each do |item| %>
+      <li>
+        <%= item[:product].name %> - Quantity: <%= item[:quantity] %> - Price: <%= number_to_currency(item[:product].price) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Calculate and display total price -->
+  <% total_price = @cart_items.sum { |item| item[:product].price * item[:quantity] } %>
+  <p>Total Price: <%= number_to_currency(total_price) %></p>
+
+  <!-- Add more order details here as needed -->
+  <%= link_to "Validate", save_order_path, class: "btn btn-primary" %>
+<% else %>
+  <p>Your cart is empty. Please add some products before confirming the order.</p>
+<% end %>

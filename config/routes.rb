@@ -19,21 +19,26 @@ Rails.application.routes.draw do
   post 'add_to_cart_from_home', to: 'home#add_to_cart', as: 'add_to_cart_from_home'
   get 'cart', to: 'home#cart', as: 'cart'
   post 'remove_from_cart', to: 'home#remove', as: 'remove_from_cart'
+  get 'order_confirmation' , to: 'home#order_confirmation', as: 'order_confirmation'
+  get "checkout", to: 'home#checkout', as: 'checkout'
+  get "save_order", to: 'home#save_order', as: 'save_order'
 
   resources :role_permissions
   resources :user_roles
   resources :permissions
   resources :roles
-  resources :users
-  resources :reviews
-  resources :order_details
-  resources :orders do
-    member do
-      get 'details'
+  scope '/admin' do
+    resources :orders do
+      member do
+        get 'details'
+      end
     end
+    resources :products
+    resources :categories
+    resources :users
+    resources :reviews
+    resources :order_details
   end
-  resources :products
-  resources :categories
     
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
