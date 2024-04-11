@@ -10,7 +10,9 @@
       <%= render partial: 'card_cart', locals: { product: product , quantity: quantity} %>
     <% end %>
 
-    <p><strong>Total:</strong> <%= number_to_currency(@cart.sum { |product, quantity| product.price * quantity }) %></p>
+    <div class="total-price">
+      <p><strong>Total:</strong> <%= number_to_currency(@cart.sum { |product, quantity| product.price * quantity }) %></p>
+    </div>
   <% end %>
 </div>
 <%= link_to 'Checkout', checkout_path, class: 'btn btn-primary' %>

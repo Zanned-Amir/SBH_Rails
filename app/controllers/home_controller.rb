@@ -2,14 +2,21 @@ class HomeController < ApplicationController
   before_action :set_cart_count
 
   def index
-    @category = Category.all
- 
+    @q = Product.ransack(params[:q])
+    @pagy , @products = pagy(@q.result(distinct: true),items: 10 )
   end
+  
+  def show_product
+    @product = Product.find(params[:id])
+    render layout: 'stuff'
+  end
+
 
   def show_products_by_category
     @category = Category.find(params[:category_id])
-    @products = @category.products
-    @cart_count = session[:cart].values.sum
+    @q = @category.products.ransack(params[:q])
+  @pagy, @products = pagy(@q.result(distinct: true), items: 10)
+  @cart_count = session[:cart].values.sum
   end
 
 # add to cart from cart page
@@ -176,13 +183,9 @@ end
    
   
   def order_params
-    # Use the rescue clause to return nil if the :order key is missing
     params.require(:order).permit(:status, :total_amount) rescue nil
   end
 
-  def home_params
-    params.require(:category).permit(:name)
-  end
 
 
 end

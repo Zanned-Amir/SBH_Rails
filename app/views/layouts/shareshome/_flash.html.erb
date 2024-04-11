@@ -1,5 +1,5 @@
 <% flash.each do |key, value| %>
-  <div class="container position-fixed" style="top: 200; right: 0; left: 0; z-index: 9999;">
+<div class="container position-sticky" style="top: 200px; right: 0; left: 0; z-index: 9999;">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="alert alert-dismissible fade show <%= key == 'notice' ? 'alert-success' : 'alert-danger' %> text-center" role="alert">
