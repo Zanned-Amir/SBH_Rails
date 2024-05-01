@@ -4,7 +4,12 @@
 
 <br>
 
-<div>
-  <%= link_to "Show this order detail", @order_detail %> |
-  <%= link_to "Back to order details", order_details_path %>
-</div>
+<% if request.referrer.include?('orders') %>
+  <div>
+   <%= link_to "Back to orders", details_order_path(@order_detail.order) %>
+  </div>
+<% else %>
+  <%= link_to "Show this order detail", @order_detail %> 
+   <%= link_to "Back to order details", order_details_path %>
+ 
+<% end %>

@@ -1,9 +1,19 @@
 class HomeController < ApplicationController
+  layout 'application'
   before_action :set_cart_count
+
+  def descover
+
+  end
 
   def index
     @q = Product.ransack(params[:q])
     @pagy , @products = pagy(@q.result(distinct: true),items: 10 )
+
+    respond_to do |format|
+      format.html 
+      format.turbo_stream 
+    end
   end
   
   def show_product
@@ -24,7 +34,7 @@ class HomeController < ApplicationController
     flash[:notice] = "Product added to cart."
     product_id = params[:product_id]
     session[:cart] ||= {}
-    session[:cart][product_id] ||= 0
+    session[:cart][product_id] ||= 0 
     session[:cart][product_id] += 1
     @cart_count = session[:cart].values.sum
   

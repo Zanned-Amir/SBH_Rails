@@ -5,9 +5,11 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @q = User.ransack(params[:q])
+    @pagy , @users = pagy(@q.result(distinct: true),items: 10 )
   end
 
+  
   # GET /users/1 or /users/1.json
   def show
   end

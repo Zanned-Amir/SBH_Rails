@@ -14,8 +14,17 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :last_name, presence: true
-  validates :email, presence: true, uniqueness: { message: "has already been taken" }
+  validates :email, presence: true, uniqueness: { message: "has already been taken" } 
+  validates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }
+  validates :birth_date , presence: true 
   validates :state, presence: true
+  validate :at_least_18_years_old
+
+  def at_least_18_years_old
+    if birth_date.present? && birth_date > 18.years.ago
+      errors.add(:birth_date, 'You must be 18 years old or older.')
+    end
+  end
 
   TUNISIAN_STATES = [
     "Ariana",
@@ -44,5 +53,10 @@ class User < ApplicationRecord
     "Zaghouan"
   ].freeze
   GENDER_OPTIONS = ["Male", "Female"].freeze
+
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["address_1", "address_2", "birth_date", "confirmation_sent_at", "confirmation_token", "confirmed_at", "created_at", "email", "encrypted_password", "failed_attempts", "gender", "id", "id_value", "last_name", "locked_at", "name", "registration_date", "remember_created_at", "reset_password_sent_at", "reset_password_token", "state", "unconfirmed_email", "unlock_token", "updated_at"]
+  end
 end
 

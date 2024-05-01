@@ -4,13 +4,18 @@ class OrdersController < ApplicationController
   before_action :set_order, only: %i[show edit update destroy]
 
   def details
+
+
+    
     @order = Order.find(params[:id])
     @order_details = @order.order_details
+
   end
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.all
+    @q = Order.ransack(params[:q])
+    @pagy , @orders= pagy(@q.result(distinct: true),items: 10 )
   end
 
   # GET /orders/1 or /orders/1.json
@@ -66,6 +71,22 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroyDetailOrder
+    @order_detail = OrderDetail.find(params[:id])
+    order = @order_detail.order
+    name = @order_detail.product.name
+    @order_detail.destroy!
+  
+    respond_to do |format|
+      format.html { redirect_to details_order_path(order), notice: "Order detail for #{name} was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+
+
+  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -76,5 +97,6 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:user_id, :order_date, :total_amount, :status, order_details_attributes: [:id, :product_id, :quantity, :price])
     end
+
 end
 

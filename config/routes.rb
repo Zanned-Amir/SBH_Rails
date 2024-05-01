@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
-  get 'home/index' , to: 'home#index'
+  get 'home/index' , to: 'home#index' , as: 'home_index'
   devise_for :admins, controllers: {
     registrations: 'admins/registrations',
     sessions: 'admins/sessions'
@@ -41,7 +41,9 @@ Rails.application.routes.draw do
     resources :reviews
     resources :order_details
   end
-    
+  
+  get 'home/descover', to: 'home#descover', as: 'descover'
+  delete 'order_details/:id', to: 'orders#destroyDetailOrder', as: 'destroy_detail'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

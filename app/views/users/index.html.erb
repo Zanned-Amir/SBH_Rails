@@ -5,23 +5,81 @@
     <h5 class="card-title"> <i class="fas fa-user"></i> Users</h5>
     <h6 class="card-subtitle text-muted">List of all users</h6>
   </div>
+     <!-- search part -->
+<div class="card">
   <div class="card-body">
-    <table class="table">
+
+   <%= search_form_for @q, url:users_path ,html: { class: 'row g-3' }, method: :get do |f| %>
+      <div class="col-md-6">
+        <%= f.label :name_cont, class: 'form-label' %>
+        <%= f.search_field :name_cont, class: 'form-control' %>
+      </div>
+       <div class="col-md-6">
+        <%= f.label :last_name_cont, class: 'form-label' %>
+        <%= f.search_field :last_name_cont, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-6">
+        <%= f.label :email_cont, class: 'form-label' %>
+        <%= f.search_field :email_cont, class: 'form-control' %>
+      </div> 
+
+       <div class="col-md-6">
+        <%= f.label :address_1_cont, class: 'form-label' %>
+        <%= f.search_field :address_1_cont, class: 'form-control' %>
+      </div>
+
+        <div class="col-md-6">
+        <%= f.label :address_2_cont, class: 'form-label' %>
+        <%= f.search_field :address_2_cont, class: 'form-control' %>
+      </div>
+
+        <div class="col-md-6">
+          <%= f.label :birth_date_eq, "Birth Date =", class: 'form-label' %>
+          <%= f.date_field :birth_date_eq, class: 'form-control' %>
+        </div>
+
+        <div class="col-md-6">
+          <%= f.label :birth_date_gteq, "Birth Date =>", class: 'form-label' %>
+          <%= f.date_field :birth_date_gteq, class: 'form-control' %>
+        </div>
+
+        <div class="col-md-6">
+          <%= f.label :birth_date_lteq, "Birth Date <=", class: 'form-label' %>
+          <%= f.date_field :birth_date_lteq, class: 'form-control' %>
+        </div>
+
+   
+
+
+
+
+      <div class="col-12">
+        <%= f.submit "Search", class: "btn btn-primary"  %>
+      </div>
+    <% end %>
+      <div class="col-12">
+          <%= link_to "Reset", users_path, class: "btn btn-primary mt-3" %>
+      </div>
+  </div>
+</div>
+ <%== pagy_bootstrap_nav(@pagy) %>
+  <div class="card-body">
+    <table class="table-responsive-lg table table-striped table-hover">
       <thead>
-        <tr>
-           <th>ID</th>
-          <th>Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-        <!--   <th>Password</th>  -->
-          <th>Registration Date</th>
-          <th>Address 1</th>
-          <th>Address 2</th>
-          <th>State</th>
-          <th>Gender</th>
-          <th>Birth Date</th>
-          <th colspan="3">Actions</th>
-        </tr>
+       <tr>
+      <td>ID </td>
+      <td><%= sort_link(@q, :name, 'First Name') %></td>
+      <td><%= sort_link(@q, :last_name, 'Last Name') %></td>
+      <td><%= sort_link(@q, :email, 'Email') %></td>
+      <td><%= sort_link(@q, :registration_date, 'Registration Date') %></td>
+      <td><%= sort_link(@q, :address_1, 'Address 1') %></td>
+      <td><%= sort_link(@q, :address_2, 'Address 2') %></td>
+      <td><%= sort_link(@q, :state, 'State') %></td>
+      <td><%= sort_link(@q, :gender, 'Gender') %></td>
+      <td><%= sort_link(@q, :birth_date, 'Birth Date') %></td>
+      <td colspan="3">Actions</td>
+    </tr>
       </thead>
       <tbody>
         <% @users.each do |user| %>
@@ -37,14 +95,15 @@
             <td><%= user.state %></td>
             <td><%= user.gender %></td>
             <td><%= user.birth_date %></td>
-            <td><%= link_to "Show", user %></td>
-            <td><%= link_to "Edit", edit_user_path(user) %></td>
-            <td><%= link_to "Destroy", user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to ' <i class="fas fa-eye text-primary"></i>'.html_safe,  user %></td>
+            <td><%= link_to '<i class="fas fa-edit text-success"></i>'.html_safe, edit_user_path(user) %></td>
+            <td><%= link_to '<i class="fas fa-trash-alt text-danger"></i>'.html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
+ <%== pagy_bootstrap_nav(@pagy) %>
 </div>
 
 <%= link_to "New user", new_user_path %>

@@ -75,8 +75,9 @@
                         <td><%= product.stock_quantity %></td>
                         <td><%= product.category.name %></td>
                       <td><%= product.active ? content_tag(:span, "Active", class: "text-success") : content_tag(:span, "Inactive", class: "text-danger") %></td>
-                        <td><%= link_to "Show", product %></td>
-                        <td><%= link_to "Edit", edit_product_path(product) %></td>
+                        <td><%= link_to ' <i class="fas fa-eye text-primary"></i>'.html_safe, product %></td>
+                        <td><%= link_to '<i class="fas fa-edit text-success"></i>'.html_safe, edit_product_path(product) %></td>
+                        <td><%= link_to '<i class="fas fa-trash-alt text-danger"></i>'.html_safe, product, method: :delete, data: { turbo_confirm: 'Are you sure?' } %></td>
                     </tr>
                 <% end %>
             </tbody>

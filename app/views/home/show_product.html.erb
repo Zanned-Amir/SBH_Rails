@@ -13,7 +13,7 @@
             <strong>Price:</strong>
             <%= @product.price %>
           </p>
-          <%= link_to "Back to products", root_path, class: "btn btn-primary" %>
+          <%= link_to "Back to products",home_index_path, class: "btn btn-primary" , data:{turbo_frame:"_top"}%>
         </div>
       </div>
       <div class="col-md-6">

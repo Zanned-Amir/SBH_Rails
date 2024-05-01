@@ -11,4 +11,9 @@ class Order < ApplicationRecord
     super(attributes)
     self.status ||= 'Pending'
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "id", "id_value", "order_date", "status", "total_amount", "updated_at", "user_id"]
+  end
+
 end

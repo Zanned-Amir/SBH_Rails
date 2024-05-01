@@ -53,7 +53,7 @@
        <nav class="category">
 <ul style="list-style-type: none">
   <% @categories.each do |category| %>
-    <%= link_to show_products_by_category_home_path(category_id: category.id) do %>
+    <%= link_to show_products_by_category_home_path(category_id: category.id) ,data:{turbo_frame: :results ,turbo_action: 'advance' } do %>
       <li class="item-2">
         <%= category.name %>
         <svg class="svg_fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

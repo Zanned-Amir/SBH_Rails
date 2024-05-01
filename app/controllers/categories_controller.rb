@@ -5,7 +5,8 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.all
+    @q = Category.ransack(params[:q])
+    @pagy , @categories= pagy(@q.result(distinct: true),items: 10 )
   end
 
   # GET /categories/1 or /categories/1.json

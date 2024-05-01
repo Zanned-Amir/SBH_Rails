@@ -2,13 +2,13 @@
 <h1>Order Details</h1>
 
 <% if @order_details.present? %>
-  <table>
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Product Name</th>
         <th>Quantity</th>
         <th>Price</th>
-        <th colspan="2">Actions</th> <!-- Added for Edit and Destroy actions -->
+        <th colspan="2">Actions</th> 
       </tr>
     </thead>
     <tbody>
@@ -17,8 +17,8 @@
           <td><%= detail.product.name %></td>
           <td><%= detail.quantity %></td>
           <td><%= detail.price %></td>
-          <td><%= link_to "Edit", edit_order_detail_path(detail) %></td> <!-- Edit action -->
-          <td><%= button_to "Destroy", order_detail_path(detail), method: :delete, data: { turbo_confirm: 'Are you sure?' } %></td> <!-- Destroy action -->
+          <td><%= link_to '<i class="fas fa-edit text-success"></i>'.html_safe, edit_order_detail_path(detail)   %></td> 
+          <td><%= link_to '<i class="fas fa-trash-alt text-danger"></i>'.html_safe, destroy_detail_path(detail), method: :delete, data: { confirm: 'Are you sure?' } %></td> 
         </tr>
       <% end %>
     </tbody>

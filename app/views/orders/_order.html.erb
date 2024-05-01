@@ -9,7 +9,11 @@
   </p>
   <p>
     <strong>User:</strong>
-    <%= order.user.name %> 
+    <% if order.user %>
+      <%= order.user.name %> 
+    <% else %>
+      No User
+    <% end %>
   </p>
 
   <p>
