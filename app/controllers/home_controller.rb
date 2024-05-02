@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
 
   def index
-    @q = Product.ransack(params[:q])
+    @q =  Product.where(active: true).ransack(params[:q])
     @pagy , @products = pagy(@q.result(distinct: true),items: 10 )
 
     respond_to do |format|
@@ -24,7 +24,8 @@ class HomeController < ApplicationController
 
   def show_products_by_category
     @category = Category.find(params[:category_id])
-    @q = @category.products.ransack(params[:q])
+    @q = @category.products.where(active: true).ransack(params[:q])
+
   @pagy, @products = pagy(@q.result(distinct: true), items: 10)
   @cart_count = session[:cart].values.sum
   end

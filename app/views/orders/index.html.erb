@@ -80,7 +80,7 @@
         <% @orders.each do |order| %>
           <tr>
             <td><%= order.id %></td>
-            <td><%= order.user.name if order.user %></td>
+            <td><%=user_status_message1(order.user) %></td>
             <td><%= order.order_date %></td>
             <td><%= order.total_amount %></td>
             <td class="<%= status_color_class(order.status) %>"><%= order.status %></td>

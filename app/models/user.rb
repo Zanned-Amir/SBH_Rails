@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :order_details, through: :orders
   has_many :roles, through: :user_roles
 
+  validates :phone_number, presence: true
   validates :name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: { message: "has already been taken" } 
@@ -54,9 +55,9 @@ class User < ApplicationRecord
   ].freeze
   GENDER_OPTIONS = ["Male", "Female"].freeze
 
-
   def self.ransackable_attributes(auth_object = nil)
-    ["address_1", "address_2", "birth_date", "confirmation_sent_at", "confirmation_token", "confirmed_at", "created_at", "email", "encrypted_password", "failed_attempts", "gender", "id", "id_value", "last_name", "locked_at", "name", "registration_date", "remember_created_at", "reset_password_sent_at", "reset_password_token", "state", "unconfirmed_email", "unlock_token", "updated_at"]
+    ["address_1", "address_2", "birth_date", "confirmation_sent_at", "confirmation_token", "confirmed_at", "created_at", "email", "encrypted_password", "failed_attempts", "gender", "id", "id_value", "last_name", "locked_at", "name", "phone_number", "registration_date", "remember_created_at", "reset_password_sent_at", "reset_password_token", "state", "unconfirmed_email", "unlock_token", "updated_at"]
   end
+  
 end
 

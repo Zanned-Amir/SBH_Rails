@@ -71,6 +71,7 @@
       <td>ID </td>
       <td><%= sort_link(@q, :name, 'First Name') %></td>
       <td><%= sort_link(@q, :last_name, 'Last Name') %></td>
+         <td><%= sort_link(@q, :phone_number, ' :phone_number') %></td>
       <td><%= sort_link(@q, :email, 'Email') %></td>
       <td><%= sort_link(@q, :registration_date, 'Registration Date') %></td>
       <td><%= sort_link(@q, :address_1, 'Address 1') %></td>
@@ -87,6 +88,7 @@
              <td><%= user.id %></td>
             <td><%= user.name %></td>
             <td><%= user.last_name %></td>
+            <td><%= user.phone_number %></td>
             <td><%= user.email %></td>
            <!-- <td><%= user.encrypted_password %></td> -->
             <td><%= user.registration_date %></td>
