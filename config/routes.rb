@@ -27,10 +27,7 @@ Rails.application.routes.draw do
   get "home/shop", to: 'home#shop', as: 'shop'
   
 
-  resources :role_permissions
-  resources :user_roles
-  resources :permissions
-  resources :roles
+ 
   scope '/admin' do
     resources :orders do
       member do
