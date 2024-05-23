@@ -66,22 +66,7 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 - Separate authentication for admin and client.
 - Secure session management for the shopping cart.
 
-## Contributing
 
-1. **Fork the repository.**
-2. **Create a new branch:**
-    ```sh
-    git checkout -b feature-branch
-    ```
-3. **Commit your changes:**
-    ```sh
-    git commit -am 'Add new feature'
-    ```
-4. **Push to the branch:**
-    ```sh
-    git push origin feature-branch
-    ```
-5. **Create a Pull Request.**
 
 
 
