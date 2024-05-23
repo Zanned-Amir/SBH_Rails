@@ -8,15 +8,29 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <%=stylesheet_link_tag("style.css")=%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&family=Carter+One&family=Nunito+Sans:wght@400;700&display=swap"
+    rel="stylesheet">
   </head>
 
   <body>
-    <%= render  partial: "layouts/shareshome/header" , locals: {cart_count: @cart_count} %>
+
+    <%= render  partial: "layouts/shareshome/header" , locals: {cart_count:@cart_count} %>
+
     <div id ="flash">
     <%= render  partial: "layouts/shareshome/flash" %>
     </div>
-    homee sweet home
+
   
     <%= yield %>
+    <%= render  partial: "layouts/shareshome/footer" %>
+
+      <%= javascript_include_tag("slider.js") %>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   </body>
 </html>

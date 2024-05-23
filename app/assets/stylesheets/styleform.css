@@ -1,0 +1,60 @@
+/* styleform.css */
+
+/* Set background color to green */
+body {
+    background-image: url('background.png');
+    background-size: cover;
+  }
+  
+  /* Center the form container */
+  .container {
+    width: 50%; /* Adjust width as needed */
+    margin: 0 auto; /* This centers the container horizontally */
+    padding: 20px; /* Add padding for spacing */
+    background-color: white; /* Set container background to white */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  /* Style form fields */
+  .field {
+    margin-bottom: 20px; /* Add space between fields */
+  }
+  
+  label {
+    font-weight: bold; /* Make labels bold */
+    display: block; /* Put labels on their own line */
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  textarea {
+    width: 100%; /* Make form inputs full-width */
+    padding: 10px; /* Add padding for better appearance */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add rounded corners */
+    box-sizing: border-box; /* Include padding in input width */
+  }
+  
+  textarea {
+    resize: vertical; /* Allow vertical resizing of textareas */
+  }
+  
+  /* Style submit button */
+  input[type="submit"] {
+    width: 100%; /* Make button full-width */
+    padding: 10px; /* Add padding for better appearance */
+    background-color: #007bff; /* Set button color */
+    color: white; /* Set text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #0056b3; /* Darken button color on hover */
+  }
+  
+  

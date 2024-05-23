@@ -1,0 +1,131 @@
+
+   <%=stylesheet_link_tag("search.css")=%>
+
+<div class="container">
+    <div class="sidebar">
+        <div class="sidehead">
+            <div class="dots">
+                <i class="fa-solid fa-circle"></i>
+                <i class="fa-solid fa-circle" style="color: #333;"></i>
+                <i class="fa-solid fa-circle"></i>
+            </div>
+            <hr style="margin: 15px 0; border: 1px solid #eee;">
+        </div>
+        <div class="sidebody">
+            <!-- Search Form -->
+            <div class="searchbar">
+                <%= search_form_for @q, url: shop_path, data:{turbo_frame: :results ,turbo_action: 'advance' },html: { class: 'row g-3' }, method: :get do |f|  %>
+                    <div class="col-md-6">
+                        <%= f.label :name_cont, class: 'form-label' %>
+                        <%= f.search_field :name_cont, class: 'form-control', oninput:"this.form.requestSubmit()" %>
+                    </div>
+
+                    <div class="col-md-6">
+                        <%= f.label :price_gteq, "Minimum Price", class: 'form-label' %>
+                        <%= f.search_field :price_gteq, class: 'form-control'  %>
+                    </div>
+
+                    <div class="col-md-6">
+                        <%= f.label :price_lteq, "Maximum Price", class: 'form-label' %>
+                        <%= f.search_field :price_lteq, class: 'form-control' ,oninput:"this.form.requestSubmit()" %>
+                    </div>
+
+                    <div class="col-md-6">
+                        <%= f.label :category_id_in, "Categories", class: 'form-label' %>
+                        <%= f.collection_check_boxes :category_id_in, Category.all, :id, :name do |b| %>
+                            <div class="form-check">
+                                <%= b.check_box class: "form-check-input" %>
+                                <%= b.label class: "form-check-label" %>
+                            </div>
+                        <% end %>
+                    </div>
+
+                 
+
+                    <div class="col-12">
+                        <%= f.submit "Search", class: "btn btn-primary"  %>
+                    </div>
+                <% end %>
+            </div>
+            <!-- End of Search Form -->
+        </div>
+        <div class="sidefoot">
+            <hr style="margin: 15px 0; border: 1px solid #eee;">
+            <div class="social-icons">
+                <i class="fa-brands fa-square-facebook"></i>
+                <i class="fa-brands fa-youtube"></i>
+                <i class="fa-brands fa-square-github"></i>
+            </div>
+        </div>
+    </div>
+       
+  <div class="body">
+
+<%= turbo_frame_tag 'results', data:{turbo_action: 'advance' }  do %>
+ <%== pagy_bootstrap_nav(@pagy) %>
+
+<section class="section product" id="shop" aria-label="product" >
+
+  <div class="container"style="margin-top:150px">
+
+   
+
+    <ul class="grid-list" ">
+
+    
+    
+      <% @products.each do |product| %>
+        <li>
+          <div class="product-card" id="<%= dom_id(product) %>">
+
+            <div class="card-banner img-holder" style="--width: 360; --height: 360;">
+          
+              <%= image_tag(product.image.attached? ? product.image : "placeholder.jpg", class: "img-cover default", loading: "lazy", alt: product.name, style: "--width: 360; --height: 360; object-fit: cover;") %>
+
+              <%= link_to add_to_cart_from_home_path(product_id: product.id), method: :post, class: "card-action-btn", aria: { label: "add to card" }, title: "Add To Card" do %>
+                <ion-icon name="bag-add-outline" aria-hidden="true"></ion-icon>
+              <% end %>
+            </div>
+
+            <div class="card-content">
+
+              <div class="wrapper">
+                <div class="rating-wrapper gray">
+                 
+                    <ion-icon name="star" aria-hidden="true"></ion-icon>
+                     <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                       <ion-icon name="star" aria-hidden="true"></ion-icon>
+                        <ion-icon name="star" aria-hidden="true"></ion-icon>
+               
+                </div>
+              </div>
+
+              <span class="span">(3)</span> <!-- Assuming this should be dynamic based on product reviews -->
+
+              <h3 class="h3">
+                <%= link_to product.name, product_path(product), class: "card-title" %>
+              </h3>
+
+              <data class="card-price" value="<%= product.price %>"><%= product.price %>DT</data>
+
+            </div>
+
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>
+ <%== pagy_bootstrap_nav(@pagy) %>
+<%end%>
+
+                    <div id="root"></div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+ 
+

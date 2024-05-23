@@ -12,4 +12,12 @@ module UsersHelper
       "User doesn't exist or has been deleted in a previous action."
     end
   end
+
+  def user_status_message1(user)
+    if user && user_exists?(user.name)
+      user.name
+    else
+      "NaN"
+    end
+  end
 end

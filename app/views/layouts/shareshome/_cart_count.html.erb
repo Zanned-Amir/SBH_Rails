@@ -1,1 +1,3 @@
-<span class="cart-number"><%= cart_count %></span>
+<%= turbo_frame_tag "btn-badge" do %>
+  <span class="btn-badge"><%= cart_count %></span>
+<% end %>

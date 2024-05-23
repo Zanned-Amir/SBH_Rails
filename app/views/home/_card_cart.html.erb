@@ -1,24 +1,30 @@
-<div class="card" style="width: 18rem;" id="<%= dom_id(product) %>">
-  <% if product.image.attached? %>
-    <%= image_tag(product.image , class: "card-img-top img-fluid", style: "height: 200px; object-fit: cover;") %>
-  <% else %>
-    <%= image_tag("placeholder.jpg", class: "card-img-top img-fluid", style: "height: 200px; object-fit: cover;") %>
-  <% end %>
-  <div class="card-body">
-    <h5 class="card-title"><%= product.name %></h5>
-    <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-      <%= product.description %>
-    </p>
-       <p class="card-text">
-      <strong>quantity:</strong>
-      <%= quantity %>
-    </p>
-    <p class="card-text">
-      <strong>Price:</strong>
-      <%= product.price %>
-    </p>
-    
-    <%= link_to "Add to cart", add_to_cart_path(product_id: product.id), method: :post, class: "btn btn-primary"  %>
-    <%= link_to "remove from cart", remove_from_cart_path(product_id: product.id), method: :post, class: "btn btn-danger" %>
+
+<div class="card mb-3" style="max-width: 540px;"id="<%= dom_id(product) %>">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <% if product.image.attached? %>
+        <%= image_tag(product.image , class: "img-fluid rounded-start", style: "height: 100%; width: 100%; object-fit: cover;") %>
+      <% else %>
+        <%= image_tag("placeholder.jpg", class: "img-fluid rounded-start", style: "height: 100%; width: 100%; object-fit: cover;") %>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.name %></h5>
+        <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+          <%= product.description %>
+        </p>
+        <p class="card-text">
+          <strong>Quantity:</strong>
+          <%= quantity %>
+        </p>
+        <p class="card-text">
+          <strong>Price:</strong>
+          <%= product.price %>
+        </p>
+        <%= link_to "Add to cart", add_to_cart_path(product_id: product.id), method: :post, class: "btn btn-primary"  %>
+        <%= link_to "Remove from cart", remove_from_cart_path(product_id: product.id), method: :post, class: "btn btn-danger" %>
+      </div>
+    </div>
   </div>
 </div>

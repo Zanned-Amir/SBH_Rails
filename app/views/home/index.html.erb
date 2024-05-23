@@ -1,67 +1,463 @@
-<p>Welcome,  <%= current_or_guest_user.name %></p>
+   <main>
+ <article>
 
-<% if user_signed_in? %>
-  <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-<% else %>
-<%= link_to "Sign in" , new_user_session_path %> 
-<%= link_to "Sign up", new_user_registration_path %>
-<% end %>
- time: <%= Time.now %>
- <!-- search part -->
-<div class="card">
-  <div class="card-body">
-    <%= search_form_for @q, url: root_path, data:{turbo_frame: :results ,turbo_action: 'advance' },html: { class: 'row g-3' }, method: :get do |f|  %>
-      <div class="col-md-6">
-        <%= f.label :name_cont, class: 'form-label' %>
-        <%= f.search_field :name_cont, class: 'form-control', oninput:"this.form.requestSubmit()" %>
-      </div>
-      
+      <!-- 
+        - #HERO
+      -->
 
-      <div class="col-md-6">
-        <%= f.label :price_gteq, "Minimum Price", class: 'form-label' %>
-        <%= f.search_field :price_gteq, class: 'form-control' %>
-      </div>
+      <section class="section hero has-bg-image" id="home" aria-label="home" style="background: url('<%= asset_path('hero-banner.png') %>') no-repeat center center fixed; background-size: cover;">
+        <div class="container hero-container">
 
-      <div class="col-md-6">
-        <%= f.label :price_lteq, "Maximum Price", class: 'form-label' %>
-        <%= f.search_field :price_lteq, class: 'form-control' %>
-      </div>
+          <h1 class="h1 hero-title">
+            <span class="span">New Cosmetics</span> Collections
+          </h1>
 
-        <div class="col-md-6">
-          <%= f.label :category_id_in, "Categories", class: 'form-label' %>
-          <%= f.collection_check_boxes :category_id_in, Category.all, :id, :name do |b| %>
-            <div class="form-check">
-              <%= b.check_box class: "form-check-input" %>
-              <%= b.label class: "form-check-label" %>
-            </div>
-          <% end %>
+          <p class="hero-text">Sale up to 40% off today</p>
+
+          <a href="#" class="btn">Shop Now</a>
+
         </div>
-          
+      </section>
 
-      <div class="col-md-6">
-        <%= f.label :active_eq, "Active", class: 'form-label' %>
-        <%= f.select :active_eq, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control' %>
-      </div>
+    <!-- 
+        - #CATEGORY
+      -->
 
-      <div class="col-12">
-        <%= f.submit "Search", class: "btn btn-primary"  %>
-      </div>
-    <% end %>
+      <section class="section category" aria-label="category">
+        <div class="container">
+
+          <h2 class="h2 section-title">
+            <span class="span">Top</span> categories
+          </h2>
+
+          <ul class="has-scrollbar">
+
+            <li class="scrollbar-item">
+            <%= link_to show_products_by_category_home_path(category_id: 16), class: "card-title", data: {turbo_frame: :results, turbo_action: 'advance'}   do %>
+              <div class="category-card">
+
+                <figure class="card-banner img-holder" style="--width: 330; --height: 300;">
+                 <%= image_tag("category-1.png", width: "330", height: "300", loading: "lazy", alt: "Cat Food", class: "img-cover") %>
+                </figure>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">solaires</a>
+                </h3>
+
+              </div>
+            <% end %>
+            </li>
+
+            <li class="scrollbar-item">
+                         <%= link_to show_products_by_category_home_path(category_id: 15), class: "card-title", data: {turbo_frame: :results, turbo_action: 'advance'}   do %>
+              <div class="category-card">
+
+                <figure class="card-banner img-holder" style="--width: 330; --height: 300;">
+                 <%= image_tag("category-2.png", width: "330", height: "300", loading: "lazy", alt: "Cat Food", class: "img-cover") %>
+                </figure>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">bio et naturel</a>
+                </h3>
+
+              </div>
+               <% end %>
+            </li>
+
+            <li class="scrollbar-item">
+                        <%= link_to show_products_by_category_home_path(category_id: 13), class: "card-title", data: {turbo_frame: :results, turbo_action: 'advance'}   do %>
+              <div class="category-card">
+
+                <figure class="card-banner img-holder" style="--width: 330; --height: 300;">
+                 <%= image_tag("category-3.png", width: "330", height: "300", loading: "lazy", alt: "Cat Food", class: "img-cover") %>
+                </figure>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">visage</a>
+                </h3>
+
+              </div>
+              <% end %>
+            </li>
+
+            <li class="scrollbar-item">
+                        <%= link_to show_products_by_category_home_path(category_id: 12), class: "card-title", data: {turbo_frame: :results, turbo_action: 'advance'}   do %>
+              <div class="category-card">
+
+                <figure class="card-banner img-holder" style="--width: 330; --height: 300;">
+                 <%= image_tag("category-4.png", width: "330", height: "300", loading: "lazy", alt: "Cat Food", class: "img-cover") %>
+                </figure>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">	bebe et maman</a>
+                </h3>
+
+              </div>
+              <% end %>
+            </li>
+
+            <li class="scrollbar-item">
+                        <%= link_to show_products_by_category_home_path(category_id: 14), class: "card-title", data: {turbo_frame: :results, turbo_action: 'advance'}   do %>
+              <div class="category-card">
+
+                <figure class="card-banner img-holder" style="--width: 330; --height: 300;">
+                 <%= image_tag("category-5.png", width: "330", height: "300", loading: "lazy", alt: "Cat Food", class: "img-cover") %>
+                </figure>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">cheveux</a>
+                </h3>
+                          <% end %>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+      <!-- 
+        - #OFFERS
+      -->
+
+ <section class="section offer" aria-label="offer">
+  <div class="container">
+
+    <ul class="grid-list">
+
+      <li>
+        <%= link_to "#" do %>
+          <div class="offer-card has-bg-image img-holder"
+            style="background-image: url('<%= asset_path('offer-banner-1.jpg') %>'); --width: 540; --height: 374;">
+          </div>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to "#" do %>
+          <div class="offer-card has-bg-image img-holder"
+            style="background-image: url('<%= asset_path('offer-banner-2.jpg') %>'); --width: 540; --height: 374;">
+          </div>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to "#" do %>
+          <div class="offer-card has-bg-image img-holder"
+            style="background-image: url('<%= asset_path('offer-banner-3.jpg') %>'); --width: 540; --height: 374;">
+          </div>
+        <% end %>
+      </li>
+
+    </ul>
+
   </div>
-</div>
+</section>
 
-<%= turbo_frame_tag 'results', data:{turbo_action: 'advance' }  do %>
-<div class="container" style="z-index: 10;">
- time: <%= Time.now %>
-<%== pagy_bootstrap_nav(@pagy) %>
-  <div class="row g-3">
-    <% @products.each do |product| %>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <%= render partial: "card", locals: { product: product } %>
-      </div>
-    <% end %>
+      <!-- 
+        - #PRODUCT
+      -->
+<section class="section product" id="shop" aria-label="product">
+  <div class="container">
+
+    <h2 class="h2 section-title">
+      <span class="span">Best</span> Seller
+    </h2>
+
+    <ul class="grid-list">
+      <% @top_products.each do |product| %>
+      
+        <li>
+          <div class="product-card" id="<%= dom_id(product) %>">
+
+            <div class="card-banner img-holder" style="--width: 360; --height: 360;">
+              <%= link_to show_product_path(product), class: "product-link" do %>
+                <%= image_tag(product.image.attached? ? product.image : "placeholder.jpg", class: "img-cover default", loading: "lazy", alt: product.name, style: "--width: 360; --height: 360; object-fit: cover;") %>
+              <% end %>
+
+              <%= link_to add_to_cart_from_home_path(product_id: product.id), method: :post, class: "card-action-btn", aria: { label: "add to card" }, title: "Add To Card" do %>
+                <ion-icon name="bag-add-outline" aria-hidden="true"></ion-icon>
+              <% end %>
+            </div>
+
+            <div class="card-content">
+
+              <div class="wrapper">
+                <div class="rating-wrapper gray">
+                 
+                    <ion-icon name="star" aria-hidden="true"></ion-icon>
+                     <ion-icon name="star" aria-hidden="true"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true"></ion-icon>
+                       <ion-icon name="star" aria-hidden="true"></ion-icon>
+                        <ion-icon name="star" aria-hidden="true"></ion-icon>
+               
+                </div>
+              </div>
+
+              <span class="span">(3)</span> <!-- Assuming this should be dynamic based on product reviews -->
+
+              <h3 class="h3">
+                <%= link_to product.name, product_path(product), class: "card-title" %>
+              </h3>
+
+              <data class="card-price" value="<%= product.price %>"><%= product.price %>DT</data>
+
+            </div>
+
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
   </div>
-  <%== pagy_bootstrap_nav(@pagy) %>
-</div>
-<% end %>
+</section>
+
+
+
+
+
+
+
+      <!-- 
+        - #SERVICE
+      -->
+
+      <section class="section service" aria-label="service">
+        <div class="container">
+
+          <%= image_tag("service-image.png", width: 122, height: 136, loading: "lazy", alt: "", class: "img") %>
+
+          <h2 class="h2 section-title">
+            <span class="span">What your health needs,</span> when they need it.
+          </h2>
+
+          <ul class="grid-list">
+
+            <li>
+              <div class="service-card">
+
+                <%= image_tag("service-icon-1.png", width: 70, height: 70, loading: "lazy", alt: "service icon", class: "card-icon") %>
+
+                <h3 class="h3 card-title">Free Same-Day Delivery</h3>
+
+                <p class="card-text">
+                  Order by 2pm local time to get free delivery on orders $35+ today.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <%= image_tag("service-icon-2.png", width: 70, height: 70, loading: "lazy", alt: "service icon", class: "card-icon") %>
+
+                <h3 class="h3 card-title">30 Day Return</h3>
+
+                <p class="card-text">
+                  35% off your first order plus 5% off all future orders.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <%= image_tag("service-icon-3.png", width: 70, height: 70, loading: "lazy", alt: "service icon", class: "card-icon") %>
+
+                <h3 class="h3 card-title">Security payment</h3>
+
+                <p class="card-text">
+                  25% off your online order of $50+. Available at most locations.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <%= image_tag("service-icon-4.png", width: 70, height: 70, loading: "lazy", alt: "service icon", class: "card-icon") %>
+
+                <h3 class="h3 card-title">24/7 Support</h3>
+
+                <p class="card-text">
+                  Shop online to get orders over $35 shipped fast and free.
+                </p>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+  
+
+
+
+
+
+      <!-- 
+        - #BRAND
+      -->
+
+       <section class="section brand" aria-label="brand">
+      <div class="container">
+
+      <h2 class="h2 section-title">
+        <span class="span">Popular</span> Brands
+      </h2>
+
+      <ul class="has-scrollbar">
+
+      <li class="scrollbar-item">
+        <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+          <%= image_tag("brand-1.jpg", width: 150, height: 150, loading: "lazy", alt: "brand logo", class: "img-cover") %>
+        </div>
+      </li>
+
+      <li class="scrollbar-item">
+        <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+          <%= image_tag("brand-2.jpg", width: 150, height: 150, loading: "lazy", alt: "brand logo", class: "img-cover") %>
+        </div>
+      </li>
+
+      <li class="scrollbar-item">
+        <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+          <%= image_tag("brand-3.png", width: 150, height: 150, loading: "lazy", alt: "brand logo", class: "img-cover") %>
+        </div>
+      </li>
+
+      <li class="scrollbar-item">
+        <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+          <%= image_tag("brand-4.jpg", width: 150, height: 150, loading: "lazy", alt: "brand logo", class: "img-cover") %>
+        </div>
+      </li>
+
+      <li class="scrollbar-item">
+        <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+          <%= image_tag("brand-5.jpg", width: 150, height: 150, loading: "lazy", alt: "brand logo", class: "img-cover") %>
+        </div>
+      </li>
+
+      </ul>
+
+      </div>
+      </section>
+
+    </article>
+  </main>
+
+    <!-- 
+    - #FOOTER
+  -->
+
+ <footer class="footer" style="background-image: url('<%= asset_path('footer-bg.jpg') %>');">
+  <div class="footer-top section">
+    <div class="container">
+      <div class="footer-brand">
+        <a href="#" class="logo">SBH</a>
+        <p class="footer-text">
+          If you have any questions, please contact us at <a href="mailto:support@parapharmacie.com" class="link">support@parapharmacie.com</a>
+        </p>
+        <ul class="contact-list">
+          <li class="contact-item">
+            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+            <address class="address">
+              Tunis l'ouina tayeb mhiri
+            </address>
+          </li>
+          <li class="contact-item">
+            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+            <a href="tel:+33123456789" class="contact-link">000000</a>
+          </li>
+        </ul>
+        <ul class="social-list">
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <ul class="footer-list">
+        <li>
+          <p class="footer-list-title">About Us</p>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Our Story</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Our Team</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Contact Us</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">FAQs</a>
+        </li>
+      </ul>
+      <ul class="footer-list">
+        <li>
+          <p class="footer-list-title">Services</p>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Pharmacy Services</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Health Advice</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Medication Delivery</a>
+        </li>
+      </ul>
+      <ul class="footer-list">
+        <li>
+          <p class="footer-list-title">Information</p>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Privacy Policy</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Terms of Service</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p class="copyright">
+        &copy; 2024 Made with ♥ by <a href="#" class="copyright-link">Zit</a>
+      </p>
+     
+        <%= image_tag("payment.png", width: "397", height: "32", loading: "lazy", alt: "payment method", class: "img") %>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
 

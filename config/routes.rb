@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get 'order_confirmation' , to: 'home#order_confirmation', as: 'order_confirmation'
   get "checkout", to: 'home#checkout', as: 'checkout'
   get "save_order", to: 'home#save_order', as: 'save_order'
+
+  get "home/shop", to: 'home#shop', as: 'shop'
   
 
   resources :role_permissions

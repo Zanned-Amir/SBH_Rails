@@ -1,24 +1,33 @@
 <!-- app/views/home/order_confirmation.html.erb -->
-<h1>Order Confirmation</h1>
+<div class="container mt-5">
+  <h1>Order Confirmation</h1>
 
-<% if @cart_items.any? %>
-  <p>Your order has been confirmed. Here are the details:</p>
+  <% if @cart_items.any? %>
+    <div class="card mt-3">
+      <div class="card-header">
+        Order Details
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Your order has been confirmed. Here are the details:</h5>
 
-  <!-- Display cart items -->
-  <ul>
-    <% @cart_items.each do |item| %>
-      <li>
-        <%= item[:product].name %> - Quantity: <%= item[:quantity] %> - Price: <%= number_to_currency(item[:product].price) %>
-      </li>
-    <% end %>
-  </ul>
+        <!-- Display cart items -->
+        <ul class="list-group list-group-flush">
+          <% @cart_items.each do |item| %>
+            <li class="list-group-item">
+              <%= item[:product].name %> - Quantity: <%= item[:quantity] %> - Price: <%= number_to_currency(item[:product].price) %>
+            </li>
+          <% end %>
+        </ul>
 
-  <!-- Calculate and display total price -->
-  <% total_price = @cart_items.sum { |item| item[:product].price * item[:quantity] } %>
-  <p>Total Price: <%= number_to_currency(total_price) %></p>
+        <!-- Calculate and display total price -->
+        <% total_price = @cart_items.sum { |item| item[:product].price * item[:quantity] } %>
+        <p class="card-text mt-3">Total Price: <strong><%= number_to_currency(total_price) %></strong></p>
 
-  <!-- Add more order details here as needed -->
-  <%= link_to "Validate", save_order_path, class: "btn btn-primary" %>
-<% else %>
-  <p>Your cart is empty. Please add some products before confirming the order.</p>
-<% end %>
+        <!-- Add more order details here as needed -->
+        <%= link_to "Validate", save_order_path, class: "btn btn-primary mt-3" %>
+      </div>
+    </div>
+  <% else %>
+    <p class="mt-3">Your cart is empty. Please add some products before confirming the order.</p>
+  <% end %>
+</div>

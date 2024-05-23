@@ -99,7 +99,7 @@
             <td><%= user.birth_date %></td>
             <td><%= link_to ' <i class="fas fa-eye text-primary"></i>'.html_safe,  user %></td>
             <td><%= link_to '<i class="fas fa-edit text-success"></i>'.html_safe, edit_user_path(user) %></td>
-            <td><%= link_to '<i class="fas fa-trash-alt text-danger"></i>'.html_safe, user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to '<i class="fas fa-trash-alt text-danger"></i>'.html_safe, user,  method: :delete, data: { turbo_confirm: 'Are you sure?' }%></td>
           </tr>
         <% end %>
       </tbody>

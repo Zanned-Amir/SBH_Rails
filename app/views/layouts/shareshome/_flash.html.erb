@@ -1,10 +1,12 @@
 <% flash.each do |key, value| %>
-<div class="container position-sticky" style="top: 200px; right: 0; left: 0; z-index: 9999;">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="alert alert-dismissible fade show <%= key == 'notice' ? 'alert-success' : 'alert-danger' %> text-center" role="alert">
-          <%= value %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <div class="position-sticky" style=" z-index: 1020;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="alert alert-dismissible fade show <%= key == 'notice' ? 'alert-success' : 'alert-danger' %> text-center" role="alert">
+            <%= value %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
         </div>
       </div>
     </div>

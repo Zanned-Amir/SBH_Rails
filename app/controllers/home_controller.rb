@@ -1,12 +1,18 @@
 class HomeController < ApplicationController
-  layout 'application'
+  layout 'stuff' , only: [:save_order,:order_confirmation,:show_product]
   before_action :set_cart_count
 
   def descover
 
   end
 
+  def shop
+    @q = Product.where(active: true).ransack(params[:q])
+    @pagy, @products = pagy(@q.result(distinct: true), items: 10)
+  end
+
   def index
+    @top_products = Product.limit(8)
     @q =  Product.where(active: true).ransack(params[:q])
     @pagy , @products = pagy(@q.result(distinct: true),items: 10 )
 
@@ -32,6 +38,7 @@ class HomeController < ApplicationController
 
 # add to cart from cart page
   def add
+  
     flash[:notice] = "Product added to cart."
     product_id = params[:product_id]
     session[:cart] ||= {}
@@ -42,10 +49,11 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
 
-        render turbo_stream: [turbo_stream.update("cart-count", partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count }),
-        
+        render turbo_stream: [turbo_stream.replace("btn-badge", partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count }),
+        turbo_stream.replace("btn-badge", partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count }),
         turbo_stream.update("product_#{product_id}", partial: "home/card_cart", locals: { product: Product.find(product_id), quantity: session[:cart][product_id] }),
         turbo_stream.update("flash", partial: "layouts/shareshome/flash"),
+        turbo_stream.replace("total-price", partial: "home/total_price", locals: { total_price: calculate_total_price }),
     
       ]
       end
@@ -55,6 +63,7 @@ class HomeController < ApplicationController
   # add to cart from home page
 
   def add_to_cart
+  
     flash[:notice]= "Product added to  cart from home ."
     product_id = params[:product_id]
     session[:cart] ||= {}
@@ -64,7 +73,7 @@ class HomeController < ApplicationController
   
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: [turbo_stream.update("cart-count", partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count }),
+        render turbo_stream: [turbo_stream.replace("btn-badge", partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count }),
         turbo_stream.update("flash", partial: "layouts/shareshome/flash")
       ]
       end
@@ -72,23 +81,31 @@ class HomeController < ApplicationController
   end
 
 
+  def calculate_total_price
+    @cart.sum { |product, quantity| product.price * quantity }
+  end
+
+
   def remove 
-    flash[:alert]= "Product removed from cart."
+    
+  flash[:alert]= "Product removed from cart."
   product_id = params[:product_id]
   session[:cart][product_id] -= 1
   if session[:cart][product_id] <= 0
     session[:cart].delete(product_id)
+
   end
   @cart_count = session[:cart].values.sum
   respond_to do |format|
     format.turbo_stream do
       render turbo_stream: [
-        turbo_stream.update("cart-count", partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count }),
+        turbo_stream.update("btn-badge", partial: "layouts/shareshome/cart_count", locals: { cart_count: @cart_count }),
         (session[:cart][product_id].to_i <= 0 ? 
           turbo_stream.remove("product_#{product_id}") : 
           turbo_stream.update("product_#{product_id}", partial: "home/card_cart", locals: { product: Product.find(product_id), quantity: session[:cart][product_id] })
-        ),
-        turbo_stream.update("flash", partial: "layouts/shareshome/flash")
+        ),turbo_stream.replace("total-price", partial: "home/total_price", locals: { total_price: calculate_total_price }),
+        turbo_stream.update("flash", partial: "layouts/shareshome/flash"),
+        
       ]
 
     end
@@ -105,6 +122,7 @@ end
   end
 
   def checkout
+    
     if user_signed_in?
       # Check if the cart is empty
       if session[:cart].blank?
@@ -123,6 +141,7 @@ end
 
 
   def order_confirmation
+   
     if user_signed_in?
       if session[:cart].blank?
         flash[:alert] = "Your cart is empty. Please add some products before confirming the order."
@@ -140,6 +159,7 @@ end
   end
   
   def save_order
+  
     if user_signed_in?
       # Check if the cart is empty
       if session[:cart].blank?
@@ -158,11 +178,13 @@ end
   private
   def process_order
     order = current_user.orders.build(total_amount: calculate_total_price, status: "Pending")
-  
+    
     if order.save
       session[:cart].each do |product_id, quantity|
         product = Product.find(product_id)
         order.order_details.create(product: product, quantity: quantity, price: product.price)
+        # Update the stock quantity of the product
+        product.update(stock_quantity: product.stock_quantity - quantity)
       end
       session[:cart] = {} # Clear the cart
       flash[:notice] = "Order and order details saved successfully"
@@ -200,3 +222,4 @@ end
 
 
 end
+
