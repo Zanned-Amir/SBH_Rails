@@ -82,5 +82,8 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 - Separate authentication for admin and client.
 - Secure session management for the shopping cart.
 
+# Demo:
+[click here](https://drive.google.com/drive/folders/1dcQxQmx809ivxuwmznOB9HMpRkwg8aRe)
+
 
 
