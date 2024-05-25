@@ -7,8 +7,10 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 ### Admin Part
 
 ![Admin Interface](admin1.png)
+![Admin Interface](admin4.png)
 ![Admin Interface](admin2.png)
 ![Admin Interface](admin3.png)
+
 
 - **Authentication:** Separate device model.
 - **Session Management:** Sessions expire after inactivity.
