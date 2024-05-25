@@ -18,10 +18,9 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 - **CRUD Operations:** Manage reviews, users, products, orders, and order details.
 
 ### Client Part
-
+![Client Interface](client.png)
 ![Client Interface](client1.png)
 ![Client Interface](client2.png)
-![Client Interface](client3.png)
 ![Client Interface](client4.png)
 ![Client Interface](client5.png)
 ![Client Interface](client6.png)
@@ -62,7 +61,6 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 
 ### Admin Panel
 
-![Admin Panel](admin_panel_image_url)
 
 - Access via `/admin`.
 - Manage products, orders, and images.
@@ -70,7 +68,6 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 
 ### Client Interface
 
-![Client Interface](client_interface_usage_image_url)
 
 - Access via root URL.
 - Browse products, manage cart, and checkout.
@@ -78,7 +75,6 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 
 ## Security
 
-![Security](security_image_url)
 
 - Admin sessions expire after inactivity.
 - Separate authentication for admin and client.
