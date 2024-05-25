@@ -6,13 +6,25 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 
 ### Admin Part
 
+![Admin Interface](admin1.png)
+![Admin Interface](admin2.png)
+![Admin Interface](admin3.png)
+
 - **Authentication:** Separate device model.
 - **Session Management:** Sessions expire after inactivity.
 - **Image Uploads:** Managed with Active Storage.
 - **Pagination:** Handled with Pagy.
 - **Search:** Implemented using Ransack.
+- **CRUD Operations:** Manage reviews, users, products, orders, and order details.
 
 ### Client Part
+
+![Client Interface](client1.png)
+![Client Interface](client2.png)
+![Client Interface](client3.png)
+![Client Interface](client4.png)
+![Client Interface](client5.png)
+![Client Interface](client6.png)
 
 - **Authentication:** Separate device model.
 - **Shopping Cart:** Session-based cart management.
@@ -24,7 +36,7 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 
 1. **Clone the repository:**
     ```sh
-    git clone  https://github.com/Zanned-Amir/SBH_Rails.git
+    git clone https://github.com/Zanned-Amir/SBH_Rails.git
     cd SBH_Rails
     ```
 
@@ -50,11 +62,15 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 
 ### Admin Panel
 
+![Admin Panel](admin_panel_image_url)
+
 - Access via `/admin`.
 - Manage products, orders, and images.
 - Search and pagination features.
 
 ### Client Interface
+
+![Client Interface](client_interface_usage_image_url)
 
 - Access via root URL.
 - Browse products, manage cart, and checkout.
@@ -62,12 +78,11 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 
 ## Security
 
+![Security](security_image_url)
+
 - Admin sessions expire after inactivity.
 - Separate authentication for admin and client.
 - Secure session management for the shopping cart.
-
-
-
 
 
 
