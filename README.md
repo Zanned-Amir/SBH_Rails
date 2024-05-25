@@ -20,12 +20,12 @@ A Ruby on Rails e-commerce application with separate admin and client parts.
 - **CRUD Operations:** Manage reviews, users, products, orders, and order details.
 
 ### Client Part
-![Client Interface](client.png)
 ![Client Interface](client1.png)
+![Client Interface](client.png)
 ![Client Interface](client2.png)
 ![Client Interface](client4.png)
-![Client Interface](clinet5.png)
 ![Client Interface](client6.png)
+![Client Interface](clinet5.png)
 
 - **Authentication:** Separate device model.
 - **Shopping Cart:** Session-based cart management.
